@@ -1,0 +1,35 @@
+ {
+    "git": {
+      "commitMessage": "chore: release v${version}"
+    },
+    "hooks": {
+      "after:release": "git checkout develop && git merge main && git push"
+    },
+    "github": {
+      "release": true,
+      "releaseName": "Release v${version}"
+    },
+    "npm": {
+      "publish": false
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "infile": "CHANGELOG.md",
+        "header": "# Changelog",
+        "preset": {
+          "name": "conventionalcommits",
+          "types":[
+            {
+              "type":"feat",
+              "section":"Funcionalidades | 🏁"
+            },
+            {
+              "type":"fix",
+              "section":"Bug Fixes | 🚨"
+            },
+            {}
+          ]
+        }
+      }
+    }
+  }

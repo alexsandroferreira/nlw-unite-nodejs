@@ -1,0 +1,31 @@
+name: CHANGELOG Generator
+
+# só executa no push de commit da branch main
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create_release:
+
+    # A execução só é permitida se o último commit não contiver 'skip ci' na mensagem.
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+    
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          fetch-depth: 0
+      - run: npm ci
+      - name: git config
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+      - name: Ensure HEAD is a branch
+        run: git checkout ${GITHUB_HEAD_REF}
+      - run: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

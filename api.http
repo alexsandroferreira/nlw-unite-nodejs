@@ -1,0 +1,5 @@
+@baseUrl = http://localhost:3333
+
+# @name get_home
+GET {{baseUrl}}
+Content-Type: application/json

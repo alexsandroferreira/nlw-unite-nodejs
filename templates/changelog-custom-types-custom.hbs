@@ -1,0 +1,36 @@
+# Changelog-Custom
+
+{{#each releases}}
+  {{#if href}}
+    ##{{#unless major}}#{{/unless}} [{{title}}]({{href}}) ({{isoDate}})
+  {{else}}
+    #### {{title}}
+  {{/if}}
+
+ {{#if href}}
+    {{#renderTitleIfValid commits 'feat:, feat(' 'Funcionalidades | 🏁'}}
+      {{#each commits}}
+        {{#startsWith message 'feat:, feat('}}
+          - {{subject}} [`{{shorthash}}`]({{href}})
+        {{/startsWith}}
+      {{/each}}
+    {{/renderTitleIfValid}}
+
+    {{#renderTitleIfValid commits 'fix:, fix(' 'Fix | 🚨'}}
+      {{#each commits}}
+        {{#startsWith message 'fix:, fix('}}
+          - {{subject}} [`{{shorthash}}`]({{href}})
+        {{/startsWith}}
+      {{/each}}
+    {{/renderTitleIfValid}}
+  {{/if}}
+
+  {{#each merges}}
+    - {{#if commit.breaking}}**Breaking change:** {{/if}}{{message}}{{#if href}} [`#{{id}}`]({{href}}){{/if}}
+  {{/each}}
+
+  {{#each fixes}}
+    - {{#if commit.breaking}}**Breaking change:** {{/if}}{{commit.subject}}{{#each fixes}}{{#if href}} [`#{{id}}`]({{href}}){{/if}}{{/each}}
+  {{/each}}
+  
+{{/each}}
