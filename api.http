@@ -3,3 +3,16 @@
 # @name get_home
 GET {{baseUrl}}
 Content-Type: application/json
+
+###
+
+# @name create_event
+POST  {{baseUrl}}/events 
+Content-Type: application/json
+
+
+{
+    "title": "Create Event Test",
+    "details": "evento de test criado. ",
+    "maximumAttendees": 22
+}
