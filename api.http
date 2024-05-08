@@ -12,7 +12,7 @@ Content-Type: application/json
 
 
 {
-    "title": "Create Event Test",
+    "title": "Create Event Test slug",
     "details": "evento de test criado. ",
     "maximumAttendees": 22
 }

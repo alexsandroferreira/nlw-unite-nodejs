@@ -11,7 +11,8 @@ import {
 } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
-import { appRoutes } from './https/routes'
+import { appRoutes } from './https/controllers/home/routes'
+import { generateSlug } from './utils/generete-slug'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -45,25 +46,49 @@ app.register(fastifySwaggerUI, {
 
 app.register(appRoutes)
 
-app.post('/events', async (request, reply) => {
-  const createEventSchema = z.object({
-    title: z.string().min(4),
-    details: z.string().nullable(),
-    maximumAttendees: z.number().positive().nullable(),
-  })
-
-  const dataEvents = createEventSchema.parse(request.body)
-
-  const event = await prisma.event.create({
-    data: {
-      title: dataEvents.title,
-      details: dataEvents.details,
-      maximumAttendees: dataEvents.maximumAttendees,
-      slug: new Date().toISOString(),
+app.withTypeProvider<ZodTypeProvider>().post(
+  '/events',
+  {
+    schema: {
+      body: z.object({
+        title: z.string().min(4),
+        details: z.string().nullable(),
+        maximumAttendees: z.number().positive().nullable(),
+      }),
+      response: {
+        201: z.object({
+          message: z.string(),
+          eventId: z.string().uuid(),
+        }),
+      },
     },
-  })
-  return reply.status(201).send({
-    message: 'dados cadastrados com sucesso',
-    eventId: event.id,
-  })
-})
+  },
+  async (request, reply) => {
+    const { details, maximumAttendees, title } = request.body
+
+    const slug = generateSlug(title)
+
+    const eventWithSaneSlug = await prisma.event.findUnique({
+      where: {
+        slug,
+      },
+    })
+
+    if (eventWithSaneSlug !== null) {
+      throw new Error('Another event with same title already exists.')
+    }
+
+    const event = await prisma.event.create({
+      data: {
+        title,
+        details,
+        maximumAttendees,
+        slug,
+      },
+    })
+    return reply.status(201).send({
+      message: 'dados cadastrados com sucesso',
+      eventId: event.id,
+    })
+  },
+)
