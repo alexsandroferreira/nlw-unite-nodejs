@@ -5,12 +5,18 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "tsx watch --env-file .env src/server.ts",
-    "release:dry": "release-it --dry-run --no-npm",
-    "release": "release-it --ci --verbose",
-    "handle": "node templates/functions/loadHandlebarsHelpers.js",
     "start": "node build/server.js",
     "build": "tsup src --out-dir build",
+    "handle": "node templates/functions/loadHandlebarsHelpers.js",
     "lint:fix": "eslint --ext .js,.ts src --fix",
+    "release:dry": "release-it --dry-run --no-npm",
+    "release": "release-it --ci --verbose",
+    "migrate:dev": "npx prisma migrate dev",
+    "migrate:dev:create": "npx prisma migrate dev --create-only",
+    "migrate:deploy": "npx prisma migrate deploy",
+    "prisma:generate": "npx prisma generate",
+    "prisma:studio": "npx prisma studio",
+    "prisma:seed": "npx prisma db seed",
     "prepare": "husky"
   },
   "repository": {
