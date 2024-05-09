@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:3333
-@eventId = ed92b444-8e83-4a79-bc84-28ae9363b915
+@eventId = 00ccf0ab-c4f7-459d-b1e6-2040419420e3
 
 # @name get_home
 GET {{baseUrl}}
@@ -13,7 +13,7 @@ Content-Type: application/json
 
 
 {
-    "title": "Create Event Test one attendee",
+    "title": "Create Event Test one attendee 2",
     "details": "limite de participantes é 1",
     "maximumAttendees": 1
 }
@@ -27,5 +27,12 @@ Content-Type: application/json
 
 {
     "name": "João Ferreira",
-    "email": "testemail2@example.com"
+    "email": "testemail@example.com"
 }
+
+###
+
+# @name get_event_data
+GET  {{baseUrl}}/events/{{eventId}}
+Content-Type: application/json
+
