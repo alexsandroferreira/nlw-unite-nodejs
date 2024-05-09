@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:3333
-@eventId = db429183-e934-4e0a-b281-f8fa2c8d2a94
+@eventId = ed92b444-8e83-4a79-bc84-28ae9363b915
 
 # @name get_home
 GET {{baseUrl}}
@@ -13,9 +13,9 @@ Content-Type: application/json
 
 
 {
-    "title": "Create Event Test slug 6",
-    "details": "evento de test criado. ",
-    "maximumAttendees": 22
+    "title": "Create Event Test one attendee",
+    "details": "limite de participantes é 1",
+    "maximumAttendees": 1
 }
 
 ###
@@ -27,5 +27,5 @@ Content-Type: application/json
 
 {
     "name": "João Ferreira",
-    "email": "testemail@example.com"
+    "email": "testemail2@example.com"
 }
