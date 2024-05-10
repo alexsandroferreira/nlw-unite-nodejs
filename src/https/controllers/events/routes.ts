@@ -95,13 +95,34 @@ export async function eventsRoutes(app: FastifyInstance) {
         params: z.object({
           eventId: z.string().uuid(),
         }),
-        response: {},
+        response: {
+          200: z.object({
+            event: z.object({
+              id: z.string().uuid(),
+              title: z.string(),
+              details: z.string().nullable(),
+              maximumAttendees: z.number().int().nullable(),
+              attendeesAmount: z.number().int(),
+            }),
+          }),
+        },
       },
     },
     async (request, reply) => {
       const { eventId } = request.params
 
       const event = await prisma.event.findUnique({
+        select: {
+          id: true,
+          title: true,
+          details: true,
+          maximumAttendees: true,
+          _count: {
+            select: {
+              attendees: true,
+            },
+          },
+        },
         where: {
           id: eventId,
         },
@@ -111,7 +132,57 @@ export async function eventsRoutes(app: FastifyInstance) {
         throw new Error('Event not found')
       }
 
-      return reply.send({ event })
+      return reply.send({
+        event: {
+          id: event.id,
+          title: event.title,
+          details: event.details,
+          maximumAttendees: event.maximumAttendees,
+          attendeesAmount: event._count.attendees,
+        },
+      })
+    },
+  )
+
+  app.withTypeProvider<ZodTypeProvider>().get(
+    '/attendees/:attendeeId/badge',
+    {
+      schema: {
+        params: z.object({
+          attendeeId: z.coerce.number().int(),
+        }),
+        response: {},
+      },
+    },
+    async (request, reply) => {
+      const { attendeeId } = request.params
+
+      const attendee = await prisma.attendee.findUnique({
+        select: {
+          name: true,
+          email: true,
+          event: {
+            select: {
+              title: true,
+            },
+          },
+        },
+        where: {
+          id: attendeeId,
+        },
+      })
+
+      if (attendee === null) {
+        throw new Error('Attendeee not found')
+      }
+
+      return reply.send({
+        attendee: {
+          name: attendee.name,
+          email: attendee.email,
+          eventTitle: attendee.event.title,
+        },
+      })
     },
   )
 }

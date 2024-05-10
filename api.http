@@ -1,5 +1,6 @@
 @baseUrl = http://localhost:3333
 @eventId = 00ccf0ab-c4f7-459d-b1e6-2040419420e3
+@attendeeId = 2
 
 # @name get_home
 GET {{baseUrl}}
@@ -33,6 +34,12 @@ Content-Type: application/json
 ###
 
 # @name get_event_data
-GET  {{baseUrl}}/events/{{eventId}}
+GET   {{baseUrl}}/events/{{eventId}}
+Content-Type: application/json
+
+###
+
+# @name get_attendee_data
+GET  {{baseUrl}}/attendees/{{attendeeId}}/badge
 Content-Type: application/json
 
