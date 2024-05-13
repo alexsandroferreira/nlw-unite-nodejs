@@ -4,5 +4,4 @@ npm run lint:fix || (echo '❌ Linting errors. Please fix then before commiting.
 
 git add .
 
-echo '✅ Linting passed without errors. Commit allowed.'
-
+echo '✅ Linting passed without errors. Commit allowed.' && echo ''

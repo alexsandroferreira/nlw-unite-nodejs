@@ -5,4 +5,4 @@ echo '📝 Checking commit message...'
 
 npx --no -- commitlint --edit ${1}
 
-echo '✅ Commit message meets conventional commit format.'
+echo '✅ Commit message meets conventional commit format.' && echo ''
