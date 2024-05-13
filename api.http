@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:3333
-@eventId = 00ccf0ab-c4f7-459d-b1e6-2040419420e3
+@eventId = 2052dd9a-1427-4bbe-aa57-d97a43080140
 @attendeeId = 2
 
 # @name get_home
@@ -27,8 +27,8 @@ Content-Type: application/json
 
 
 {
-    "name": "João Ferreira",
-    "email": "testemail@example.com"
+    "name": "I",
+    "email": "testemail3@example.com"
 }
 
 ###
@@ -41,5 +41,16 @@ Content-Type: application/json
 
 # @name get_attendee_data
 GET  {{baseUrl}}/attendees/{{attendeeId}}/badge
+Content-Type: application/json
+
+###
+# @name get_check_in
+GET  {{baseUrl}}/attendees/{{attendeeId}}/check-in
+Content-Type: application/json
+
+###
+
+# @name get_many_attendees
+GET   {{baseUrl}}/events/{{eventId}}/attendees?query=alex
 Content-Type: application/json
 
