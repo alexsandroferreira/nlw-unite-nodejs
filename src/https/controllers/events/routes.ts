@@ -2,6 +2,7 @@ import { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
+import { BadRequest } from '@/https/_errors/bad-request'
 import { prisma } from '@/lib/prisma'
 
 import { CreateEvent } from './create-event-controller'
@@ -55,7 +56,7 @@ export async function eventsRoutes(app: FastifyInstance) {
       })
 
       if (attenddeFromEmail !== null) {
-        throw new Error('This email is already registered for this event.')
+        throw new BadRequest('This email is already registered for this event.')
       }
 
       const [event, amountOfAttendeesForEvent] = await Promise.all([
@@ -76,7 +77,7 @@ export async function eventsRoutes(app: FastifyInstance) {
         event?.maximumAttendees &&
         amountOfAttendeesForEvent >= event.maximumAttendees
       ) {
-        throw new Error(
+        throw new BadRequest(
           'The maximum number of attendees for this event has been exceeded.',
         )
       }
@@ -135,7 +136,7 @@ export async function eventsRoutes(app: FastifyInstance) {
       })
 
       if (event === null) {
-        throw new Error('Event not found')
+        throw new BadRequest('Event not found')
       }
 
       return reply.send({
@@ -190,7 +191,7 @@ export async function eventsRoutes(app: FastifyInstance) {
       })
 
       if (attendee === null) {
-        throw new Error('Attendeee not found')
+        throw new BadRequest('Attendeee not found')
       }
 
       const baseURL = `${request.protocol}://${request.hostname}`
@@ -231,7 +232,7 @@ export async function eventsRoutes(app: FastifyInstance) {
       })
 
       if (attendeeCheckIn !== null) {
-        throw new Error('Attendee already checked in.')
+        throw new BadRequest('Attendee already checked in.')
       }
 
       await prisma.checkIn.create({

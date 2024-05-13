@@ -1,6 +1,7 @@
 @baseUrl = http://localhost:3333
 @eventId = ee6c246a-649a-42a2-aa70-015f624ddfcf
-@attendeeId = 2
+@eventId-test = 9e8c0bac-626b-42d1-b834-5b0ba53afe7c
+@attendeeId = 10081
 
 # @name get_home
 GET {{baseUrl}}
@@ -14,15 +15,15 @@ Content-Type: application/json
 
 
 {
-    "title": "Create Event Test one attendee 2",
+    "title": 222,
     "details": "limite de participantes é 1",
-    "maximumAttendees": 1
+    "maximumAttendees": 33
 }
 
 ###
 
 # @name register_in_event
-POST  {{baseUrl}}/events/{{eventId}}/attendees
+POST  {{baseUrl}}/events/{{eventId-test}}/attendees
 Content-Type: application/json
 
 

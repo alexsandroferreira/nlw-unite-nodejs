@@ -1,5 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 
+import { BadRequest } from '@/https/_errors/bad-request'
 import { prisma } from '@/lib/prisma'
 import { generateSlug } from '@/utils/generete-slug'
 
@@ -20,7 +21,7 @@ export async function CreateEvent(
   })
 
   if (eventWithSaneSlug !== null) {
-    throw new Error('Another event with same title already exists.')
+    throw new BadRequest('Another event with same title already exists.')
   }
 
   const event = await prisma.event.create({

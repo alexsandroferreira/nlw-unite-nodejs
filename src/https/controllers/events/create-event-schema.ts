@@ -1,7 +1,9 @@
 import { z } from 'zod'
 
 export const CreateEventsSchema = z.object({
-  title: z.string().min(4),
+  title: z
+    .string({ invalid_type_error: 'O Título precisa ser um texto' })
+    .min(4),
   details: z.string().nullable(),
   maximumAttendees: z.number().positive().nullable(),
 })

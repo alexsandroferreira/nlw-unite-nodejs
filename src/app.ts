@@ -9,6 +9,7 @@ import {
   ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 
+import { errorHandler } from './error-handler'
 import { eventsRoutes } from './https/controllers/events/routes'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -39,3 +40,5 @@ app.register(fastifySwaggerUI, {
 })
 
 app.register(eventsRoutes)
+
+app.setErrorHandler(errorHandler)
