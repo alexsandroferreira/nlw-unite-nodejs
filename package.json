@@ -26,9 +26,13 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "devDependencies": {
     "@commitlint/cli": "19.2.1",
     "@commitlint/config-conventional": "19.1.0",
+    "@faker-js/faker": "8.4.1",
     "@release-it/keep-a-changelog": "5.0.0",
     "@rocketseat/eslint-config": "2.2.2",
     "@types/node": "20.12.7",
@@ -48,6 +52,7 @@
     "@fastify/swagger-ui": "3.0.0",
     "@prisma/client": "5.13.0",
     "@release-it/conventional-changelog": "8.0.1",
+    "dayjs": "1.11.11",
     "dotenv": "16.4.5",
     "fastify": "4.26.2",
     "fastify-type-provider-zod": "1.1.9",
