@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:3333
-@eventId = 2052dd9a-1427-4bbe-aa57-d97a43080140
+@eventId = ee6c246a-649a-42a2-aa70-015f624ddfcf
 @attendeeId = 2
 
 # @name get_home
@@ -27,7 +27,7 @@ Content-Type: application/json
 
 
 {
-    "name": "I",
+    "name": "Ivone Carla",
     "email": "testemail3@example.com"
 }
 

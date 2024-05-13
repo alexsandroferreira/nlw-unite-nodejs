@@ -10,6 +10,8 @@ import { CreateEventsSchema, EventResponseSchema } from './create-event-schema'
 export async function eventsRoutes(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post('/events', {
     schema: {
+      summary: 'Create an event',
+      tags: ['event'],
       body: CreateEventsSchema,
       response: {
         201: EventResponseSchema,
@@ -22,6 +24,8 @@ export async function eventsRoutes(app: FastifyInstance) {
     '/events/:eventId/attendees',
     {
       schema: {
+        summary: 'Register an attendee',
+        tags: ['attendees'],
         body: z.object({
           name: z.string().min(4),
           email: z.string().email(),
@@ -92,6 +96,8 @@ export async function eventsRoutes(app: FastifyInstance) {
     '/events/:eventId',
     {
       schema: {
+        summary: 'Get an event',
+        tags: ['event'],
         params: z.object({
           eventId: z.string().uuid(),
         }),
@@ -148,6 +154,8 @@ export async function eventsRoutes(app: FastifyInstance) {
     '/attendees/:attendeeId/badge',
     {
       schema: {
+        summary: 'Get an attendee badge',
+        tags: ['attendees'],
         params: z.object({
           attendeeId: z.coerce.number().int(),
         }),
@@ -205,6 +213,8 @@ export async function eventsRoutes(app: FastifyInstance) {
     '/attendees/:attendeeId/check-in',
     {
       schema: {
+        summary: 'Get check in at attendee',
+        tags: ['check-ins'],
         params: z.object({
           attendeeId: z.coerce.number().int(),
         }),
@@ -238,6 +248,8 @@ export async function eventsRoutes(app: FastifyInstance) {
     '/events/:eventId/attendees',
     {
       schema: {
+        summary: 'Get event attendees',
+        tags: ['event'],
         params: z.object({
           eventId: z.string().uuid(),
         }),
