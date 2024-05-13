@@ -1,5 +1,57 @@
 @baseUrl = http://localhost:3333
+@eventId = ee6c246a-649a-42a2-aa70-015f624ddfcf
+@eventId-test = 9e8c0bac-626b-42d1-b834-5b0ba53afe7c
+@attendeeId = 10081
 
 # @name get_home
 GET {{baseUrl}}
 Content-Type: application/json
+
+###
+
+# @name create_event
+POST  {{baseUrl}}/events 
+Content-Type: application/json
+
+
+{
+    "title": 222,
+    "details": "limite de participantes é 1",
+    "maximumAttendees": 33
+}
+
+###
+
+# @name register_in_event
+POST  {{baseUrl}}/events/{{eventId-test}}/attendees
+Content-Type: application/json
+
+
+{
+    "name": "Ivone Carla",
+    "email": "testemail3@example.com"
+}
+
+###
+
+# @name get_event_data
+GET   {{baseUrl}}/events/{{eventId}}
+Content-Type: application/json
+
+###
+
+# @name get_attendee_data
+GET  {{baseUrl}}/attendees/{{attendeeId}}/badge
+Content-Type: application/json
+
+###
+# @name get_check_in
+GET  {{baseUrl}}/attendees/{{attendeeId}}/check-in
+Content-Type: application/json
+
+###
+
+# @name get_many_attendees
+GET   {{baseUrl}}/events/{{eventId}}/attendees?query=alex
+Content-Type: application/json
+

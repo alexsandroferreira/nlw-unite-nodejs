@@ -9,7 +9,10 @@ import {
   ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 
-import { appRoutes } from './https/routes'
+import { errorHandler } from './error-handler'
+import { attendeeRoutes } from './https/controllers/attendee/routes'
+import { checkInsRoutes } from './https/controllers/check-ins/routes'
+import { eventsRoutes } from './https/controllers/events/routes'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -25,9 +28,10 @@ app.register(fastifySwagger, {
     consumes: ['application/json'],
     produces: ['application/json'],
     info: {
-      title: 'template-base-node',
-      description: 'Api template base node',
-      version: '1.0.0',
+      title: 'Nlw unite api pass.in',
+      description:
+        'Rotas desenvolvidas durante os estudos trilha nlw 15# da Rocketseat',
+      version: '0.1.0',
     },
   },
   transform: jsonSchemaTransform,
@@ -37,4 +41,8 @@ app.register(fastifySwaggerUI, {
   routePrefix: '/docs',
 })
 
-app.register(appRoutes)
+app.register(eventsRoutes)
+app.register(attendeeRoutes)
+app.register(checkInsRoutes)
+
+app.setErrorHandler(errorHandler)
