@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/alexsandroferreira/nlw-unite-nodejs/compare/0.1.0...0.2.0) (2024-05-23)
+
+
+### Funcionalidades | 🏁
+
+* **events/routes:** update response data ([5f0cfcc](https://github.com/alexsandroferreira/nlw-unite-nodejs/commit/5f0cfccdc2b49bf15a102b5d19c23ef79c18310e))
+
 ## 0.1.0 (2024-05-13)
 
 
